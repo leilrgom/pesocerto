@@ -49,18 +49,20 @@ export default function Home() {
           fetchPriority="high"
         />
       </div>
-      <div className="home-cards">
-        {cards.map((c) => (
-          <Link href={c.href} key={c.href} className="home-card">
-            <c.icon size={67} />
-            <span className="home-card-label">{c.label}</span>
-            <span className="card-arrow">
-              <ChevronRight size={22} />
-            </span>
-          </Link>
-        ))}
+      <div className="home-actions">
+        <div className="home-cards">
+          {cards.map((c) => (
+            <Link href={c.href} key={c.href} className="home-card">
+              <c.icon size={67} />
+              <span className="home-card-label">{c.label}</span>
+              <span className="card-arrow">
+                <ChevronRight size={22} />
+              </span>
+            </Link>
+          ))}
+        </div>
+        <div className="home-glow" aria-hidden="true" />
       </div>
-      <div className="home-glow" aria-hidden="true" />
     </>
   );
 }

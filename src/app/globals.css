@@ -87,7 +87,8 @@ p {
     #003019 43%,
     #003324 100%
   );
-  padding-bottom: 103px;
+  padding-bottom: calc(103px + env(safe-area-inset-bottom));
+  border-radius: 0;
   min-height: 730px;
   height: 100dvh;
   display: flex;
@@ -154,17 +155,31 @@ p {
 .home-hero {
   width: 100%;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 0;
 }
 .home-hero img {
   display: block;
   width: 100%;
   height: auto;
+  /* Remove the rounded corner baked into the reference artwork. */
+  margin-top: -6px;
+}
+.home-actions {
+  position: relative;
+  flex: 1;
+  min-height: 327px;
+  display: flex;
+  align-items: center;
+  padding: 27px 0;
+  isolation: isolate;
 }
 .home-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 11px 10px;
-  padding: 14px 10px 0 24px;
+  width: 100%;
+  padding: 0 24px;
   position: relative;
   z-index: 1;
 }
@@ -222,8 +237,10 @@ p {
   box-shadow: 0 0 8px #2b5900;
 }
 .home-glow {
-  flex: 1;
-  min-height: 54px;
+  position: absolute;
+  inset: auto 0 0;
+  height: 54px;
+  pointer-events: none;
   background: url("/assets/glow.webp") center bottom/100% 100% no-repeat;
 }
 .bottom-nav {
@@ -749,7 +766,7 @@ textarea {
 }
 @media (max-width: 380px) {
   .home-cards {
-    padding-left: 14px;
+    padding-inline: 14px;
   }
   .home-card {
     height: 120px;
@@ -782,7 +799,7 @@ textarea {
     width: 205px;
   }
   .home-glow {
-    min-height: 45px;
+    height: 45px;
   }
 }
 @media (min-width: 600px) {
@@ -792,9 +809,6 @@ textarea {
   .app-shell {
     border-left: 1px solid #ffffff12;
     border-right: 1px solid #ffffff12;
-  }
-  .home-shell {
-    max-height: 900px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
