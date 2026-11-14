@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env*
+!.env.example
+*.tsbuildinfo
+playwright-report/
+test-results/
+.vercel
+
+# Local tool and credential metadata
+.aws
+.agents/
+.codex/
