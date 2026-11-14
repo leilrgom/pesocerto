@@ -1,8 +1,7 @@
-const CACHE = "peso-correto-static-v1";
+const CACHE = "peso-correto-static-v2";
 const ASSETS = [
   "/assets/hero.webp",
-  "/assets/logo.webp",
-  "/assets/glow.webp",
+  "/assets/logo-transparent.webp",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
 ];

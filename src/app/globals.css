@@ -72,21 +72,16 @@ p {
 }
 .app-shell {
   position: relative;
-  max-width: 480px;
+  max-width: 436px;
   min-height: 100dvh;
   margin: 0 auto;
-  background: linear-gradient(150deg, #043824, #002b1a);
+  background:
+    radial-gradient(ellipse at 50% 75%, #78b92316, transparent 65%), #003b24;
   padding-bottom: 118px;
   box-shadow: 0 0 100px #0005;
 }
 .home-shell {
   max-width: 436px;
-  background: radial-gradient(
-    ellipse at 44% 85%,
-    #286e03 0%,
-    #003019 43%,
-    #003324 100%
-  );
   padding-bottom: calc(103px + env(safe-area-inset-bottom));
   border-radius: 0;
   min-height: 730px;
@@ -103,10 +98,18 @@ p {
   border-bottom: 1px solid #a5ff0029;
   gap: 12px;
 }
+.brand-link {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+}
 .header-logo {
-  width: 230px;
-  max-width: 55vw;
-  height: auto;
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: 72px;
+  object-fit: contain;
 }
 .header-icon {
   color: #eaf0e2;
@@ -119,20 +122,17 @@ p {
   border-radius: 9px;
 }
 .home-topbar {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  inset: 15px 10px auto;
-  height: 48px;
-  padding: 0;
+  height: 118px;
+  flex-shrink: 0;
+  padding: 6px 14px;
   border: 0;
-  pointer-events: none;
+  gap: 8px;
 }
-.home-topbar .header-icon {
-  pointer-events: auto;
-  background: #103e16;
-}
-.home-topbar .notification-link {
-  background: #043b23;
+.home-topbar .header-logo {
+  height: 104px;
+  max-width: 300px;
 }
 .notification-link {
   position: relative;
@@ -153,17 +153,25 @@ p {
   min-height: 0;
 }
 .home-hero {
+  position: relative;
   width: 100%;
+  aspect-ratio: 436 / 167;
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: 0;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 4%,
+    #000 85%,
+    transparent
+  );
 }
 .home-hero img {
+  position: absolute;
+  bottom: 0;
   display: block;
   width: 100%;
   height: auto;
-  /* Remove the rounded corner baked into the reference artwork. */
-  margin-top: -6px;
 }
 .home-actions {
   position: relative;
@@ -236,20 +244,13 @@ p {
   color: #e5ffd7;
   box-shadow: 0 0 8px #2b5900;
 }
-.home-glow {
-  position: absolute;
-  inset: auto 0 0;
-  height: 54px;
-  pointer-events: none;
-  background: url("/assets/glow.webp") center bottom/100% 100% no-repeat;
-}
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: 436px;
   min-height: 94px;
   background: linear-gradient(120deg, #003b23, #002d1f);
   border-radius: 38px 38px 0 0;
@@ -582,7 +583,7 @@ textarea {
 }
 .drawer {
   position: absolute;
-  left: max(0px, calc(50% - 240px));
+  left: max(0px, calc(50% - 218px));
   top: 0;
   bottom: 0;
   width: 300px;
@@ -794,12 +795,6 @@ textarea {
   .page-main {
     padding-left: 15px;
     padding-right: 15px;
-  }
-  .header-logo {
-    width: 205px;
-  }
-  .home-glow {
-    height: 45px;
   }
 }
 @media (min-width: 600px) {

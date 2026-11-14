@@ -80,15 +80,17 @@ export function Shell({ children }: { children: React.ReactNode }) {
         >
           <Menu size={30} />
         </button>
-        {!home && (
-          <Link href="/dashboard" aria-label="Peso Correto — início">
-            <img
-              className="header-logo"
-              src="/assets/logo.webp"
-              alt="PESO CORRETO. Peso certo. Decisão certa."
-            />
-          </Link>
-        )}
+        <Link
+          className="brand-link"
+          href="/dashboard"
+          aria-label="Peso Correto — início"
+        >
+          <img
+            className="header-logo"
+            src="/assets/logo-transparent.webp"
+            alt="PESO CORRETO. Peso certo. Decisão certa."
+          />
+        </Link>
         <Link
           className="header-icon notification-link"
           href="/notificacoes"
@@ -115,7 +117,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               <X />
             </button>
             <img
-              src="/assets/logo.webp"
+              src="/assets/logo-transparent.webp"
               alt="Peso Correto"
               width="260"
               height="95"

@@ -43,7 +43,7 @@ export default function Home() {
       <div className="home-hero">
         <img
           src="/assets/hero.webp"
-          alt="PESO CORRETO. Peso certo. Decisão certa. Bovino, ovino, suíno e equino no campo."
+          alt="Bovino, ovino, suíno e equino no campo."
           width="436"
           height="285"
           fetchPriority="high"
@@ -61,7 +61,6 @@ export default function Home() {
             </Link>
           ))}
         </div>
-        <div className="home-glow" aria-hidden="true" />
       </div>
     </>
   );
