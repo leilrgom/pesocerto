@@ -10,7 +10,28 @@ Data do trabalho: 14/11/2026 (America/Sao_Paulo).
 - Suíte completa: **22 testes aprovados**, sem falhas. Testes automatizados: migrations PostgreSQL reais em PGlite; isolamento entre dois usuários para animais, perfis, pesagens e fotos; bloqueio de alteração de consumo/resultados pelo cliente; CRUD; FK de propriedade; cotas diária/global; reenvio idempotente; faixas válidas/inválidas; ausência de evidência; relatórios; CSV; imagens; SDK OpenAI com transporte controlado.
 - Servidor de produção local iniciado. HTTP 200 confirmado em início, login, animais, pesagem, registros, relatórios, perfil e manifest. API de dados retornou 503 com orientação de configuração na ausência de credenciais.
 
-Atualização de configuração: conexões PostgreSQL salvas exclusivamente no `.env.local`; as duas migrations foram aplicadas ao Supabase remoto e registradas em `supabase_migrations.schema_migrations`. Confirmados RLS nas seis tabelas, dois buckets privados e bloqueio de leitura anônima/alteração de consumo e estimativas. Ainda não foram executados cadastro/login reais, envio de e-mail, upload no Supabase remoto, chamada paga OpenAI ou deploy Vercel. As chaves HTTP anon/service role e o modelo OpenAI ainda precisam ser configurados. O teste de banco usa schemas mínimos que representam as interfaces Auth/Storage; não é um teste do serviço remoto. PGlite serializa consultas numa conexão: o lock transacional está implementado, mas uma carga concorrente em múltiplas conexões precisa ser validada no PostgreSQL do projeto.
+## Verificação real após a publicação
+
+Aplicativo: https://pesocerto-six.vercel.app. Repositório público: https://github.com/leilrgom/pesocerto.
+
+As duas migrations foram aplicadas ao Supabase remoto e registradas em `supabase_migrations.schema_migrations`. Confirmados RLS nas seis tabelas, buckets privados e bloqueio de leitura anônima/alteração de consumo e estimativas. Segredos foram configurados na Vercel e permanecem fora do repositório. Modelo configurado: `gpt-5.4-mini`.
+
+Testes executados por HTTP na publicação, usando contas temporárias:
+
+- Página inicial HTTP 200 e API de animais HTTP 401 sem sessão.
+- Criação administrativa de conta temporária confirmada, login real por senha e leitura do perfil com cookies de sessão.
+- Cadastro real de animal, upload no bucket privado e leitura por URL assinada.
+- Uma chamada paga real à Responses API, com a imagem coletiva de referência. A resposta estruturada foi validada e não forneceu peso por falta de evidência apropriada. Isso verifica o fluxo e a recusa; não demonstra precisão de uma estimativa positiva.
+- Salvamento de pesagem, inclusão de peso real de teste, consulta do histórico e agregação do relatório.
+- Reenvio com o mesmo UUID/payload retornou o mesmo registro sem outra chamada paga.
+- Segunda conta real não conseguiu consultar o animal da primeira conta, confirmando RLS por acesso HTTP.
+- Animal, pesagem, fotografias e contas temporárias removidos ao concluir.
+
+**Pendente no Supabase:** os links de autenticação ainda apontavam para `http://localhost:3000` no teste. É necessário configurar Site URL como `https://pesocerto-six.vercel.app` e adicionar as Redirect URLs `/auth/callback` e `/auth/callback?next=/atualizar-senha` desse domínio. Envio/recebimento de e-mails de confirmação e recuperação ainda não foram verificados.
+
+O teste local de banco usa schemas mínimos que representam Auth/Storage. PGlite serializa consultas numa conexão: cotas são testadas localmente, mas a carga concorrente em múltiplas conexões precisa ser validada no PostgreSQL remoto. A pesagem positiva com foto completa de um animal ainda precisa ser verificada em campo.
+
+A conexão automática GitHub → Vercel foi tentada, mas a Vercel informou que é necessário adicionar uma Login Connection do GitHub. A publicação pela CLI funciona; a sincronização automática de commits ainda não está habilitada.
 
 O controle de navegador retornou “No browser is available”. Não foi feita screenshot nem comparação de pixels da implementação, nem teste de câmera física ou de responsividade em navegador. Não considerar a fidelidade visual renderizada aprovada apenas pelo build.
 

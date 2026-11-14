@@ -1,5 +1,9 @@
 # PESO CORRETO
 
+Aplicativo publicado: https://pesocerto-six.vercel.app
+
+Repositório público: https://github.com/leilrgom/pesocerto
+
 Aplicação Next.js App Router + TypeScript para animais, fotografias privadas e estimativas **experimentais** de peso com a OpenAI Responses API. Supabase fornece autenticação, PostgreSQL e Storage. Preparada para execução serverless na Vercel.
 
 A imagem `visualexato.png` foi preservada. Os recortes em `public/assets` conservam o logotipo, os animais e a iluminação. Cards, menu, notificações e navegação são elementos reais. A página inicial fica pública; os módulos com dados exigem sessão quando o Supabase está configurado. Sem configuração, mostram uma orientação, sem dados fictícios.
@@ -107,7 +111,7 @@ Os endpoints exigem mesma origem para mutações do navegador e retornam dados p
 2. Framework: Next.js. Instalação: `npm ci`. Build: `npm run build`. Use Node.js 22.x.
 3. Configure todas as variáveis de `.env.example` em Production e, se precisar, em Preview; segredos devem ser marcados como sensíveis. Não publique uma cópia de `.env.local`.
 4. Configure as URLs de redirecionamento no Supabase para cada domínio utilizado. Prefira URLs exatas; cuidado ao autorizar domínios de preview.
-5. Faça o deploy e execute o roteiro de verificação real. Nenhum deploy foi executado por este projeto automaticamente.
+5. Faça o deploy e execute o roteiro de verificação real. A publicação inicial foi executada pela CLI e está disponível no endereço acima. Deploy automático por Git ainda depende de conectar a conta GitHub nas configurações da Vercel.
 6. Para domínio próprio, adicione o domínio nas configurações da Vercel, aplique os registros DNS apresentados e atualize Site URL/Redirect URLs no Supabase.
 
 `/api/estimar-peso` usa runtime Node e `maxDuration=60`; a chamada paga tem timeout menor. Confirme a duração permitida no painel do plano e ajuste caso necessário. A arquitetura não depende de workers, VPS, Docker, Prisma ou Redis. Avalie a elegibilidade do uso pretendido para o plano Hobby nos termos vigentes da Vercel.
@@ -127,7 +131,7 @@ Os testes de banco executam as migrations reais em PostgreSQL embarcado (PGlite)
 
 Os testes OpenAI usam o SDK oficial com transporte HTTP controlado e respostas de teste explícitas: verificam payload multimodal, schema estrito, consumo, ausência de repetição e rejeição de saída inválida. Não efetuam chamadas pagas. Os testes de imagem exercitam Sharp com bytes reais e arquivos inválidos.
 
-Consulte `docs/VERIFICACAO.md` para resultados executados e pendências. As conexões PostgreSQL foram configuradas localmente e as migrations aplicadas ao projeto Supabase. O fluxo integrado real Supabase/OpenAI ainda não foi aprovado: faltam as chaves HTTP anon/service role e a seleção de modelo. O controle de navegador disponível informou que não havia navegador: a screenshot e a comparação visual renderizada permanecem pendentes. A referência foi aberta e analisada diretamente.
+Consulte `docs/VERIFICACAO.md` para resultados executados e pendências. As conexões PostgreSQL foram configuradas localmente e as migrations aplicadas ao projeto Supabase. As chaves HTTP e o modelo `gpt-5.4-mini` estão configurados no ambiente de produção da Vercel. Foram validados com contas temporárias: login real, perfil, cadastro de animal, foto privada e URL assinada, uma chamada OpenAI, persistência, histórico, relatório, reenvio idempotente e isolamento entre contas. A imagem coletiva de referência foi corretamente tratada sem estimativa disponível; isso não valida a precisão de peso. Os dados de teste foram removidos. Está pendente a troca de Site URL e Redirect URLs no painel Supabase para confirmar cadastros e recuperar senhas no domínio publicado. O controle de navegador disponível informou que não havia navegador: a screenshot e a comparação visual renderizada permanecem pendentes. A referência foi aberta e analisada diretamente.
 
 ## Estrutura
 
