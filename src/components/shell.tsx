@@ -45,7 +45,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let active = true;
     const refresh = () => {
-      if (!configured()) return;
+      if (path === "/home" || !configured()) return;
       fetch("/api/data/notifications", { cache: "no-store" })
         .then(async (response) =>
           response.ok
@@ -64,6 +64,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       active = false;
     };
   }, [path]);
+  if (path === "/home") return <>{children}</>;
   const nav = [
     { href: "/dashboard", label: "Início", icon: Home },
     { href: "/animais", label: "Animais", icon: AnimalIcon },
