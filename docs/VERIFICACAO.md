@@ -27,7 +27,7 @@ Testes executados por HTTP na publicação, usando contas temporárias:
 - Segunda conta real não conseguiu consultar o animal da primeira conta, confirmando RLS por acesso HTTP.
 - Animal, pesagem, fotografias e contas temporárias removidos ao concluir.
 
-**Pendente no Supabase:** os links de autenticação ainda apontavam para `http://localhost:3000` no teste. É necessário configurar Site URL como `https://pesocerto-six.vercel.app` e adicionar as Redirect URLs `/auth/callback` e `/auth/callback?next=/atualizar-senha` desse domínio. Envio/recebimento de e-mails de confirmação e recuperação ainda não foram verificados.
+**URLs de autenticação validadas após atualização no painel:** Site URL `https://pesocerto-six.vercel.app` e Redirect URLs `/auth/callback` e `/auth/callback?next=/atualizar-senha` desse domínio. Foram gerados links administrativos de recuperação com cada destino e sem destino explícito; todos retornaram os endereços esperados. Nenhum e-mail foi enviado e a conta temporária foi removida. Envio/recebimento de e-mails de confirmação e recuperação ainda não foram verificados.
 
 O teste local de banco usa schemas mínimos que representam Auth/Storage. PGlite serializa consultas numa conexão: cotas são testadas localmente, mas a carga concorrente em múltiplas conexões precisa ser validada no PostgreSQL remoto. A pesagem positiva com foto completa de um animal ainda precisa ser verificada em campo.
 
