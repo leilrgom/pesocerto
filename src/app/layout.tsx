@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Shell } from "@/components/shell";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 export const metadata: Metadata = {
   title: "PESO CORRETO",
   description:
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <Shell>{children}</Shell>
+        <WhatsAppButton />
       </body>
     </html>
   );
