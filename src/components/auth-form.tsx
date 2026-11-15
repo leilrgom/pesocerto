@@ -127,7 +127,7 @@ export function AuthForm({
   }
   return (
     <>
-      <PageTitle title={title} subtitle="Peso certo. Decisão certa." />
+      <PageTitle title={title} subtitle="Peso correto. Decisão certa." />
       {!configured() ? (
         <SetupNotice />
       ) : (

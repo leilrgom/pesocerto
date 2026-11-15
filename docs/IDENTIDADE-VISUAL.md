@@ -1,5 +1,15 @@
 # Ajuste de identidade visual
 
+## Correção do slogan — 15/11/2026
+
+Texto do logo atualizado para **PESO CORRETO. DECISÃO CERTA.** com a ferramenta integrada ImageGen, preservando transparência e identidade visual. Arquivo em uso: `public/assets/logo-correto.webp`. O cache foi versionado para distribuir o novo arquivo.
+
+Prompt utilizado nesta edição:
+
+> Use case: text-localization. Edit target: the attached transparent PESO CORRETO logo. Make ONE text correction only: the small white tagline currently says PESO CERTO. DECISÃO CERTA. Replace it with exactly: PESO CORRETO. DECISÃO CERTA. Spell the changed word C-O-R-R-E-T-O with both R letters, never CERTO. Keep the main large title PESO CORRETO exactly as it is, with white PESO and neon-lime CORRETO, keep all farm-animal silhouettes, scale icon, lime oval swoosh, layout and italic type styling. Preserve a genuine transparent alpha background. Fit the longer tagline beneath the main title by slightly reducing only its size if needed. Improve text edge cleanliness, no speckles, no distressed texture, no background rectangle, no clipping. Do not add any other words or graphics.
+
+## Versão anterior — 14/11/2026
+
 Data: 14/11/2026.
 
 O cabeçalho agora usa elementos reais separados: menu, logo com transparência e notificações. A imagem de referência aparece apenas no recorte visual dos animais, definido por CSS. O fundo da aplicação é contínuo; a faixa decorativa recortada foi retirada. Todas as telas usam a mesma largura máxima.

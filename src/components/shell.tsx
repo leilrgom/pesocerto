@@ -88,8 +88,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
         >
           <img
             className="header-logo"
-            src="/assets/logo-transparent.webp"
-            alt="PESO CORRETO. Peso certo. Decisão certa."
+            src="/assets/logo-correto.webp"
+            alt="PESO CORRETO. Peso correto. Decisão certa."
           />
         </Link>
         <Link
@@ -118,7 +118,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               <X />
             </button>
             <img
-              src="/assets/logo-transparent.webp"
+              src="/assets/logo-correto.webp"
               alt="Peso Correto"
               width="260"
               height="95"

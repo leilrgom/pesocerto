@@ -50,11 +50,6 @@ const resources = [
 ];
 const questions = [
   {
-    title: "A estimativa substitui a balança?",
-    answer:
-      "Não. A estimativa por fotografia é experimental e não tem precisão garantida. A faixa apresentada não é um intervalo estatístico calibrado. Confirme o peso em balança e não utilize a estimativa como peso certificado para transações comerciais.",
-  },
-  {
     title: "Como tirar uma fotografia melhor?",
     answer:
       "Fotografe o animal inteiro, preferencialmente de lado, em um local iluminado e sem obstáculos. Mantenha o animal parado. Uma segunda foto traseira é opcional. Medidas corporais e uma referência de escala conhecida podem ajudar a avaliação.",
@@ -90,7 +85,7 @@ export default function PresentationPage() {
             aria-label="Peso Correto — apresentação"
           >
             <img
-              src="/assets/logo-transparent.webp"
+              src="/assets/logo-correto.webp"
               width="200"
               height="73"
               alt="PESO CORRETO"
@@ -151,12 +146,12 @@ export default function PresentationPage() {
               <div className={styles.phone}>
                 <div className={styles.phoneTop}>
                   <span />
-                  <span>PESO CERTO. DECISÃO CERTA.</span>
+                  <span>PESO CORRETO. DECISÃO CERTA.</span>
                   <span />
                 </div>
                 <img
                   className={styles.phoneLogo}
-                  src="/assets/logo-transparent.webp"
+                  src="/assets/logo-correto.webp"
                   alt="Peso Correto"
                   width="230"
                   height="84"
@@ -413,7 +408,7 @@ export default function PresentationPage() {
           <div className={styles.footerTop}>
             <Link href="/home" aria-label="Peso Correto — início do site">
               <img
-                src="/assets/logo-transparent.webp"
+                src="/assets/logo-correto.webp"
                 width="190"
                 height="69"
                 alt="Peso Correto"
@@ -421,7 +416,7 @@ export default function PresentationPage() {
               />
             </Link>
             <p>
-              Peso certo. Decisão certa.
+              Peso correto. Decisão certa.
               <br />
               Tecnologia para acompanhar o seu rebanho.
             </p>
