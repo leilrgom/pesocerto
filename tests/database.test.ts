@@ -23,6 +23,9 @@ test("migrations reais: CRUD, RLS, fotos, cotas, duplicação e relatórios", as
     await db.exec(
       await readFile("supabase/migrations/202611140002_reports.sql", "utf8"),
     );
+    await db.exec(
+      await readFile("supabase/migrations/202611150001_admin.sql", "utf8"),
+    );
     await db.query("insert into auth.users(id,email) values($1,$2),($3,$4)", [
       u1,
       "one@example.test",
@@ -239,6 +242,114 @@ test("migrations reais: CRUD, RLS, fotos, cotas, duplicação e relatórios", as
         assert.equal(result.rows.length, 1);
         assert.equal(Number(result.rows[0].estimated_weight_kg), 300);
         assert.equal(Number(result.rows[0].actual_weight_kg), 320);
+      },
+    );
+    await t.test(
+      "contas comuns não consultam nem atribuem privilégios administrativos",
+      async () => {
+        await asUser(u2);
+        for (const query of [
+          "select * from admin_accounts",
+          "update admin_accounts set active=true",
+          "select * from admin_login_limits",
+          "select admin_overview()",
+          "select admin_user_directory()",
+        ]) {
+          await assert.rejects(db.exec(query), /permission denied/);
+        }
+        await assert.rejects(
+          db.query(
+            "insert into admin_accounts(user_id,username,email) values($1,'testadmin','admin@example.test')",
+            [u2],
+          ),
+          /permission denied/,
+        );
+        await assert.rejects(
+          db.query("select allow_admin_login($1,$2)", [
+            "a".repeat(64),
+            "b".repeat(64),
+          ]),
+          /permission denied/,
+        );
+      },
+    );
+    await t.test(
+      "limite administrativo bloqueia repetição e renova a janela no banco",
+      async () => {
+        await db.exec("reset role");
+        for (let i = 0; i < 12; i++) {
+          const r = await db.query<{ allowed: boolean }>(
+            "select allow_admin_login($1,$2) as allowed",
+            ["a".repeat(64), "b".repeat(64)],
+          );
+          assert.equal(r.rows[0].allowed, true);
+        }
+        const blocked = await db.query<{ allowed: boolean }>(
+          "select allow_admin_login($1,$2) as allowed",
+          ["c".repeat(64), "b".repeat(64)],
+        );
+        assert.equal(blocked.rows[0].allowed, false);
+        await db.exec(
+          "update admin_login_limits set window_started_at=now()-interval '16 minutes'",
+        );
+        const renewed = await db.query<{ allowed: boolean }>(
+          "select allow_admin_login($1,$2) as allowed",
+          ["a".repeat(64), "b".repeat(64)],
+        );
+        assert.equal(renewed.rows[0].allowed, true);
+        await db.exec("delete from admin_login_limits");
+        for (let i = 0; i < 30; i++) {
+          const r = await db.query<{ allowed: boolean }>(
+            "select allow_admin_login($1,$2) as allowed",
+            ["d".repeat(64), String(i).padStart(64, "0")],
+          );
+          assert.equal(r.rows[0].allowed, true);
+        }
+        const ipBlocked = await db.query<{ allowed: boolean }>(
+          "select allow_admin_login($1,$2) as allowed",
+          ["d".repeat(64), "e".repeat(64)],
+        );
+        assert.equal(ipBlocked.rows[0].allowed, false);
+      },
+    );
+    await t.test(
+      "visão geral e diretório administrativo agregam e filtram dados corretamente",
+      async () => {
+        await db.exec("reset role");
+        await db.query(
+          "insert into admin_accounts(user_id,username,email) values($1,'testadmin','admin@example.test')",
+          [u1],
+        );
+        await db.query(
+          "update profiles set full_name='Produtor Teste',deletion_requested_at=now() where id=$1",
+          [u2],
+        );
+        await db.exec("set role service_role");
+        const overview = await db.query<{
+          data: { users: number; animals: number; pending_deletions: number };
+        }>("select admin_overview() as data");
+        assert.equal(overview.rows[0].data.users, 1);
+        assert.equal(overview.rows[0].data.animals, 2);
+        assert.equal(overview.rows[0].data.pending_deletions, 1);
+        const users = await db.query<{
+          data: {
+            total: number;
+            items: { id: string; animal_count: number }[];
+          };
+        }>("select admin_user_directory('Produtor',1,20,true) as data");
+        assert.equal(users.rows[0].data.total, 1);
+        assert.equal(users.rows[0].data.items[0].id, u2);
+        assert.equal(users.rows[0].data.items[0].animal_count, 1);
+        const noMatch = await db.query<{ data: { total: number } }>(
+          "select admin_user_directory('Inexistente',1,20) as data",
+        );
+        assert.equal(noMatch.rows[0].data.total, 0);
+        const nextPage = await db.query<{
+          data: { total: number; items: unknown[] };
+        }>("select admin_user_directory('',2,1) as data");
+        assert.equal(nextPage.rows[0].data.total, 1);
+        assert.equal(nextPage.rows[0].data.items.length, 0);
+        await db.exec("reset role");
       },
     );
   } finally {

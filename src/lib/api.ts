@@ -59,6 +59,18 @@ export function check(error: unknown) {
 }
 export function sameOrigin(req: Request) {
   const origin = req.headers.get("origin");
-  if (origin && origin !== new URL(req.url).origin)
+  if (!origin) return;
+  const url = new URL(req.url);
+  const host = req.headers.get("host") || url.host;
+  const protocol =
+    req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
+    url.protocol.slice(0, -1);
+  let source: URL;
+  try {
+    source = new URL(origin);
+  } catch {
+    throw new HttpError(403, "Origem não permitida.");
+  }
+  if (source.host !== host || source.protocol !== protocol + ":")
     throw new HttpError(403, "Origem não permitida.");
 }

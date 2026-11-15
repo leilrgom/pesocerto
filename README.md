@@ -46,6 +46,7 @@ As duas variáveis `NEXT_PUBLIC_` são incorporadas ao build. Reinicie o servido
 2. No SQL Editor execute, em ordem, **uma única vez por migration**:
    - `supabase/migrations/202611140001_initial.sql`
    - `supabase/migrations/202611140002_reports.sql`
+   - `supabase/migrations/202611150001_admin.sql`
 3. Alternativamente, com a CLI oficial instalada, vincule o projeto e execute `supabase db push`. O histórico da CLI evita reaplicações.
 4. As migrations criam as seis tabelas, índices, relações de propriedade, triggers, políticas RLS, buckets privados `animal-photos` e `weighing-photos`, cotas e agregação de relatórios. Não é necessário criar buckets públicos ou políticas adicionais de escrita.
 5. Em Authentication, habilite Email/Password. Configure Site URL para o domínio final. Adicione Redirect URLs exatas:
@@ -145,3 +146,7 @@ Consulte `docs/VERIFICACAO.md` para resultados executados e pendências. As cone
 - `public/assets`: recortes derivados da referência; original preservado na raiz.
 
 **Limitação do produto:** peso por fotografia é experimental, sem precisão garantida ou certificação. A faixa fornecida pela IA não é intervalo estatístico calibrado. Utilize balança para confirmar peso e para decisões comerciais.
+
+## Administração
+
+Login administrativo: https://www.pesocorreto.com.br/admin/login. O painel oferece indicadores, consultas de usuários, consumo de IA e solicitações de exclusão. Usa Supabase Auth e uma tabela de autorização protegida; não há senha fixa no código. Consulte [docs/ADMINISTRACAO.md](docs/ADMINISTRACAO.md) para provisionamento, segurança e verificações.

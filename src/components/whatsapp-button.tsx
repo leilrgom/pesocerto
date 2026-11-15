@@ -3,7 +3,9 @@
 import { usePathname } from "next/navigation";
 
 export function WhatsAppButton() {
-  const isWebsite = usePathname() === "/home";
+  const path = usePathname();
+  const isWebsite = path === "/home";
+  if (path.startsWith("/admin")) return null;
 
   return (
     <a

@@ -28,6 +28,17 @@ export async function proxy(request: NextRequest) {
     /^\/(animais|pesagem|registros|relatorios|perfil|notificacoes)(\/|$)/.test(
       request.nextUrl.pathname,
     );
+  const adminPath =
+    request.nextUrl.pathname.startsWith("/admin") &&
+    request.nextUrl.pathname !== "/admin/login";
+  if (adminPath && (error || !data.user)) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/admin/login";
+    url.search = "";
+    const redirect = NextResponse.redirect(url);
+    response.cookies.getAll().forEach((c) => redirect.cookies.set(c));
+    return redirect;
+  }
   if (protectedPath && (error || !data.user)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
