@@ -35,7 +35,7 @@ const resources = [
   {
     icon: ClipboardList,
     title: "Cada animal tem sua história",
-    text: "Organize identificação, espécie, raça, idade e observações. Encontre seus animais e consulte os registros de cada um.",
+    text: "Organize os dados de cada animal: identificação, espécie, raça, idade e observações. Encontre seus animais e consulte o histórico de cada um.",
   },
   {
     icon: ScanLine,
@@ -67,7 +67,7 @@ const questions = [
   {
     title: "As fotografias ficam públicas?",
     answer:
-      "Não. As fotografias são armazenadas em buckets privados, e o acesso aos seus registros exige autenticação. As imagens enviadas para análise são processadas pela OpenAI para gerar o resultado.",
+      "Não. As fotografias são armazenadas em um ambiente privado, e o acesso aos seus registros exige que você entre na sua conta. As imagens enviadas para análise são processadas pela OpenAI para gerar o resultado.",
   },
   {
     title: "Funciona sem internet?",
@@ -102,7 +102,7 @@ export default function PresentationPage() {
             <a href="#duvidas">Dúvidas</a>
           </nav>
           <Link className={styles.loginLink} href="/login">
-            Acessar aplicativo <ArrowUpRight size={18} />
+            Acessar o aplicativo <ArrowUpRight size={18} />
           </Link>
         </div>
       </header>
@@ -120,9 +120,9 @@ export default function PresentationPage() {
                 na <span>palma da mão.</span>
               </h1>
               <p>
-                Mais informação para cuidar de quem faz parte da sua produção.
-                Organize seus animais e acompanhe estimativas experimentais de
-                peso com uma fotografia.
+                Mais informações para cuidar da sua produção. Organize seus
+                animais e acompanhe estimativas experimentais de peso com uma
+                fotografia.
               </p>
               <div className={styles.actions}>
                 <Link className={styles.primaryButton} href="/cadastro">
@@ -261,7 +261,7 @@ export default function PresentationPage() {
                   n: "01",
                   icon: ClipboardList,
                   title: "Cadastre seu animal",
-                  text: "Crie sua conta e registre os dados do animal. Identificação, espécie e informações de manejo ficam organizadas.",
+                  text: "Crie sua conta e registre os dados do animal. As informações de identificação e manejo ficam reunidas em um só lugar.",
                 },
                 {
                   n: "02",
@@ -273,7 +273,7 @@ export default function PresentationPage() {
                   n: "03",
                   icon: ChartNoAxesCombined,
                   title: "Analise e acompanhe",
-                  text: "Revise o resultado da IA, salve a análise e acompanhe o histórico. Adicione o peso real quando houver uma medição em balança.",
+                  text: "Confira o resultado da IA, salve a análise e acompanhe o histórico. Informe o peso real sempre que pesar o animal em uma balança.",
                 },
               ].map((step) => (
                 <article key={step.n} className={styles.step}>
@@ -296,13 +296,7 @@ export default function PresentationPage() {
           <div className={`${styles.container} ${styles.resourcesGrid}`}>
             <div className={styles.resourceIntro}>
               <span className={styles.eyebrow}>UM COMPANHEIRO DE MANEJO</span>
-              <h2>
-                Cada registro
-                <br />
-                faz parte
-                <br />
-                da evolução.
-              </h2>
+              <h2>Cada registro faz parte da evolução.</h2>
               <p>
                 Do cadastro ao relatório, reúna as informações que ajudam você a
                 conhecer melhor seu rebanho.
@@ -348,7 +342,7 @@ export default function PresentationPage() {
                 <br />o seu dia a dia.
               </h2>
               <p>
-                Use direto no navegador ou adicione o Peso Correto à tela
+                Use o aplicativo no navegador ou adicione o Peso Correto à tela
                 inicial em dispositivos compatíveis. Acesse o aplicativo com
                 poucos toques.
               </p>
@@ -432,7 +426,7 @@ export default function PresentationPage() {
               Tecnologia para acompanhar o seu rebanho.
             </p>
             <Link href="/login">
-              Acessar aplicativo <ArrowUpRight size={17} />
+              Acessar o aplicativo <ArrowUpRight size={17} />
             </Link>
           </div>
           <div className={styles.footerBottom}>

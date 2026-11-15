@@ -371,7 +371,7 @@
   font-size: clamp(32px, 3.8vw, 46px);
   line-height: 1.15;
   font-weight: 750;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.02em;
   margin-top: 14px;
 }
 .section p {
@@ -436,6 +436,18 @@
   grid-template-columns: 1fr 1.2fr;
   gap: 110px;
   align-items: center;
+}
+.resourceIntro h2 {
+  max-width: 12ch;
+}
+.heroGrid > *,
+.resourcesGrid > *,
+.faqGrid > *,
+.resourceList article > div:last-child {
+  min-width: 0;
+}
+.resourceList p {
+  overflow-wrap: break-word;
 }
 .resourceIntro > p {
   color: #bdd0bf;
@@ -625,7 +637,7 @@
 .cta h2 {
   font-size: clamp(31px, 3.8vw, 46px);
   line-height: 1.13;
-  letter-spacing: -1.5px;
+  letter-spacing: -0.02em;
   margin-top: 14px;
 }
 .cta p {
@@ -803,8 +815,8 @@
     grid-template-columns: 1fr;
     gap: 38px;
   }
-  .resourceIntro h2 br {
-    display: none;
+  .resourceIntro h2 {
+    max-width: none;
   }
   .resourceIntro > p {
     max-width: 490px;
