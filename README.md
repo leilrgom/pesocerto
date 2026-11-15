@@ -48,7 +48,7 @@ As duas variáveis `NEXT_PUBLIC_` são incorporadas ao build. Reinicie o servido
    - `supabase/migrations/202611140002_reports.sql`
    - `supabase/migrations/202611150001_admin.sql`
 3. Alternativamente, com a CLI oficial instalada, vincule o projeto e execute `supabase db push`. O histórico da CLI evita reaplicações.
-4. As migrations criam as seis tabelas, índices, relações de propriedade, triggers, políticas RLS, buckets privados `animal-photos` e `weighing-photos`, cotas e agregação de relatórios. Não é necessário criar buckets públicos ou políticas adicionais de escrita.
+4. As migrations criam as tabelas do aplicativo e da administração, índices, relações de propriedade, triggers, políticas RLS, buckets privados `animal-photos` e `weighing-photos`, cotas e agregação de relatórios. Não é necessário criar buckets públicos ou políticas adicionais de escrita.
 5. Em Authentication, habilite Email/Password. Configure Site URL para o domínio final. Adicione Redirect URLs exatas:
    - `http://localhost:3000/auth/callback`
    - `http://localhost:3000/auth/callback?next=/atualizar-senha`

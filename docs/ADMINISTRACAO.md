@@ -58,3 +58,7 @@ node --env-file=.env.local scripts/check-admin.mjs
 Além das credenciais Supabase, esse script requer `ADMIN_CHECK_URL`, `ADMIN_USERNAME` e `ADMIN_PASSWORD`. Ele verifica login, senha incorreta, origem externa, página protegida, APIs e logout. Cria uma conta comum temporária com metadados que simulam uma tentativa de elevação de privilégio, confirma o bloqueio e remove a conta ao concluir. Não envia e-mails nem chama a OpenAI. Cada execução inclui duas tentativas de login e deve respeitar a janela de limitação.
 
 Uma página negada pode responder por redirecionamento HTTP ou por uma meta tag de redirecionamento, conforme o streaming do Next.js. Em ambos os casos, o painel não é renderizado; a API retorna 403 para uma conta autenticada sem autorização.
+
+## Resultado executado — 15/11/2026
+
+Migration aplicada ao Supabase e conta solicitada provisionada com Supabase Auth, sem senha no repositório. Build, lint e os 28 testes locais passaram. O script de verificação HTTP também passou no servidor local e em `https://www.pesocorreto.com.br`: login válido, senha incorreta, bloqueio de origem externa, indicadores, diretório, consumo de IA, solicitações, consulta de detalhes e logout. A conta comum temporária foi impedida de acessar a página, a API, a tabela de administradores e a RPC global, mesmo com metadados de administrador. Todas as contas temporárias foram removidas; a conta administrativa solicitada permanece ativa.
